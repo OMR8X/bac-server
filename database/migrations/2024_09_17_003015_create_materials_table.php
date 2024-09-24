@@ -12,7 +12,9 @@ return new class extends Migration
     public function up(): void
     {
         Schema::create('materials', function (Blueprint $table) {
-            $table->id();
+            $table->unsignedInteger(column:"id",autoIncrement:true);
+            $table->text(column:"name");
+            $table->text(column:"description")->nullable();
             $table->timestamps();
         });
     }

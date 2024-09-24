@@ -12,7 +12,14 @@ return new class extends Migration
     public function up(): void
     {
         Schema::create('file_categories', function (Blueprint $table) {
-            $table->id();
+            $table->id(column:"id");
+
+            $table->unsignedBigInteger(column:"file_id");
+            $table->foreign(columns: 'file_id')->references('id')->on('files')->onDelete('cascade');
+
+            $table->unsignedInteger(column:"category_id");
+            $table->foreign(columns: 'category_id')->references('id')->on('categories')->onDelete('cascade');
+
             $table->timestamps();
         });
     }

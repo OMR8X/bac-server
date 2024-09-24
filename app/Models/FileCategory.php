@@ -8,4 +8,5 @@ use Illuminate\Database\Eloquent\Model;
 class FileCategory extends Model
 {
     use HasFactory;
+    
 }

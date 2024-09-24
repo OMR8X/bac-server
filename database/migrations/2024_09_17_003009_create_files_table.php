@@ -13,6 +13,14 @@ return new class extends Migration
     {
         Schema::create('files', function (Blueprint $table) {
             $table->id();
+            $table->text("title");
+            $table->text("size");
+            $table->text("extension");
+            $table->year("year")->nullable();
+            $table->unsignedInteger("section_id")->nullable();
+            $table->unsignedInteger("material_id")->nullable();
+            $table->unsignedInteger("teacher_id")->nullable();
+            $table->unsignedInteger("school_id")->nullable();
             $table->timestamps();
         });
     }

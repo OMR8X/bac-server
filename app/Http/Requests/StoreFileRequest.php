@@ -11,7 +11,7 @@ class StoreFileRequest extends FormRequest
      */
     public function authorize(): bool
     {
-        return false;
+        return true;
     }
 
     /**
@@ -22,7 +22,12 @@ class StoreFileRequest extends FormRequest
     public function rules(): array
     {
         return [
-            //
+            'title' => 'required|string|max:255',
+            'year' => 'nullable|integer|min:1900|max:' . date('Y'),
+            'section_id' => 'nullable|integer|exists:sections,id',
+            'material_id' => 'nullable|integer|exists:materials,id',
+            'teacher_id' => 'nullable|integer|exists:teachers,id',
+            'school_id' => 'nullable|integer|exists:schools,id',
         ];
     }
 }

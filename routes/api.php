@@ -1,29 +1,41 @@
 <?php
 
 use App\Http\Controllers;
-use App\Http\Controllers\Files\DeleteFileController;
-use App\Http\Controllers\Files\SearchController;
-use App\Http\Controllers\Files\SelectFileController;
-use App\Http\Controllers\Files\UpdateFileController;
-use App\Http\Controllers\Files\UploadFileController;
-use App\Http\Controllers\Managers\MaterialsController;
-use App\Http\Controllers\Managers\TeachersController;
-use App\Http\Controllers\Managers\SchoolsController;
-use App\Http\Controllers\Managers\CategoriesController;
-use App\Http\Controllers\Managers\ManagersController;
-use App\Http\Controllers\Managers\SectionsController;
 
+
+use App\Http\Controllers\Managers\CategoryController;
+use App\Http\Controllers\Managers\GetAllManagersController;
+use App\Http\Controllers\Managers\MaterialController;
+use App\Http\Controllers\Managers\SchoolController;
+use App\Http\Controllers\Managers\SectionController;
+use App\Http\Controllers\Managers\TeacherController;
 use Illuminate\Support\Facades\Route;
 
 // Managers
-Route::group(["prefix" => "/managers"], function () {});
+Route::group(["prefix" => "/managers"], function () {
+    //
+    Route::get('', GetAllManagersController::class);
+    //
+    Route::resource('categories', CategoryController::class)->except([
+        'create', 'edit'
+    ]);
+    //
+    Route::resource('materials', controller: MaterialController::class)->except([
+        'create', 'edit'
+    ]);
+    //
+    Route::resource('schools', controller: SchoolController::class)->except([
+        'create', 'edit'
+    ]);
+    //
+    Route::resource('sections', controller: SectionController::class)->except([
+        'create', 'edit'
+    ]);
+    //
+    Route::resource('teachers', controller: TeacherController::class)->except([
+        'create', 'edit'
+    ]);
+});
 
 // Files
 Route::group(["prefix" => "/files"], function () {});
-// 
-// 
-// 
-// 
-// 
-// 
-// 
