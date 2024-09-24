@@ -3,6 +3,7 @@
 use App\Http\Controllers;
 
 
+use App\Http\Controllers\Files\FileController;
 use App\Http\Controllers\Managers\CategoryController;
 use App\Http\Controllers\Managers\GetAllManagersController;
 use App\Http\Controllers\Managers\MaterialController;
@@ -35,11 +36,13 @@ Route::group(["prefix" => "/managers"], function () {
     Route::resource('teachers', controller: TeacherController::class)->except([
         'create', 'edit'
     ]);
-
-
-
-
 });
 
 // Files
-Route::group(["prefix" => "/files"], function () {});
+Route::group(["prefix" => "/files"], function () {
+    //
+    Route::resource('', controller: FileController::class)->except([
+        'create', 'edit'
+    ]);
+
+});

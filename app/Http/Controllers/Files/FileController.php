@@ -1,12 +1,14 @@
 <?php
 
-namespace App\Http\Controllers;
-
+namespace App\Http\Controllers\Files;
+use App\Http\Controllers\Controller;
 use App\Http\Requests\StoreFileRequest;
 use App\Http\Requests\UpdateFileRequest;
 use App\Models\File;
 use DB;
 use Storage;
+
+
 
 class FileController extends Controller
 {
