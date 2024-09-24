@@ -35,6 +35,8 @@ Route::group(["prefix" => "/managers"], function () {
     Route::resource('teachers', controller: TeacherController::class)->except([
         'create', 'edit'
     ]);
+
+
 });
 
 // Files
