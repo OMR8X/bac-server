@@ -6,6 +6,7 @@ use App\Http\Requests\StoreFileRequest;
 use App\Http\Requests\UpdateFileRequest;
 use App\Models\File;
 use DB;
+use Request;
 use Storage;
 
 
@@ -15,17 +16,40 @@ class FileController extends Controller
     /**
      * Display a listing of the resource.
      */
-    public function index()
+    public function index(Request $request)
     {
-        //
-        $entities = File::all();
+        // Set the default per page value
+        $perPage = 20;
 
-        //
+        // Start the query
+        $query = File::query();
+
+         // Optional: Add a filter for 'keywords'
+        if ($request->has('keywords')) {
+            // Split the search string into words
+            $keywords = explode(' ', $request->input('keywords'));
+
+            // Apply a 'where' condition for each keyword
+            $query->where(function($q) use ($keywords) {
+                foreach ($keywords as $word) {
+                    $q->orWhere('title', 'like', '%' . $word . '%');
+                }
+            });
+        }
+
+        // Apply sorting
+        $query->orderBy('created_at', 'desc');
+
+        // Paginate the results
+        $entities = $query->paginate($perPage);
+
+        // Return response
         return response()->json([
             'status' => 'success',
             'data' => $entities
         ], 200);
     }
+
 
     /**
      * Store a newly created resource in storage.

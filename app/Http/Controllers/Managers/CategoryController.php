@@ -12,10 +12,10 @@ class CategoryController extends Controller
 
     public function index()
     {
-        // 
+        //
         $entities = Category::all();
 
-        // 
+        //
         return response()->json([
             'status' => 'success',
             'data' => $entities
@@ -25,7 +25,7 @@ class CategoryController extends Controller
 
     public function store(StoreCategoryRequest $request)
     {
-        // 
+        //
         $validatedData = $request->validated();
 
         //
@@ -43,10 +43,10 @@ class CategoryController extends Controller
 
     public function show(string $id)
     {
-        // 
+        //
         $entity = Category::findOrFail($id);
 
-        // 
+        //
         return response()->json([
             'status' => 'success',
             'data' => [$entity],
@@ -56,16 +56,16 @@ class CategoryController extends Controller
 
     public function update(UpdateCategoryRequest $request, string $id)
     {
-        // 
+        //
         $entity = Category::findOrFail($id);
 
-        // 
+        //
         $validatedData = $request->validated();
 
-        // 
+        //
         $entity->update($validatedData);
 
-        // 
+        //
         return response()->json([
             'status' => 'success',
             'message' => 'Entity updated successfully',
@@ -79,7 +79,7 @@ class CategoryController extends Controller
         //
         $entity = Category::findOrFail($id);
 
-        // 
+        //
         $entity->delete();
 
         //
