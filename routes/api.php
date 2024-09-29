@@ -40,9 +40,11 @@ Route::group(["prefix" => "/managers"], function () {
 
 // Files
 Route::group(["prefix" => "/files"], function () {
-    //
-    Route::resource('', controller: FileController::class)->except([
-        'create', 'edit'
-    ]);
+    // Define the index route manually to accept the Request object
+    Route::get('/', [FileController::class, 'index']);
 
+    // Define other resource routes
+    Route::resource('', FileController::class)->except([
+        'create', 'edit', 'index'
+    ]);
 });
