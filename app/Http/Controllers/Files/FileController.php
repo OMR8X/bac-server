@@ -18,27 +18,32 @@ class FileController extends Controller
      */
     public function index(Request $request)
     {
-        // Set the default per page value
+        // Set the default per-page value
         $perPage = 20;
 
         // Start the query
         $query = File::query();
 
-         // Optional: Add a filter for 'keywords'
-        if ($request->has('keywords')) {
-            // Split the search string into words
-            $keywords = explode(' ', $request->input('keywords'));
+        // Optional: Add a filter for 'keywords'
+        if ($request->filled('keywords')) {
+            // Trim the keywords to remove any leading/trailing spaces
+            $keywords = array_filter(explode(' ', trim($request->input('keywords'))));
 
-            // Apply a 'where' condition for each keyword
-            $query->where(function($q) use ($keywords) {
-                foreach ($keywords as $word) {
-                    $q->orWhere('title', 'like', '%' . $word . '%');
-                }
-            });
+            // Apply a 'where' condition for each keyword if keywords are not empty
+            if (!empty($keywords)) {
+                $query->where(function($q) use ($keywords) {
+                    foreach ($keywords as $word) {
+                        $q->orWhere('title', 'like', '%' . $word . '%');
+                    }
+                });
+            }
         }
 
-        // Apply sorting
-        $query->orderBy('created_at', 'desc');
+        // Apply sorting, with optional dynamic sorting parameters
+        $sortBy = $request->input('sort_by', 'created_at');
+        $sortOrder = $request->input('sort_order', 'desc');
+        //
+        $query->orderBy($sortBy, $sortOrder);
 
         // Paginate the results
         $entities = $query->paginate($perPage);
@@ -49,6 +54,7 @@ class FileController extends Controller
             'data' => $entities
         ], 200);
     }
+
 
 
     /**
