@@ -12,6 +12,7 @@ class File extends Model
     protected $fillable = [
         'title',
         'year',
+        'size',
         'section_id',
         'material_id',
         'teacher_id',
