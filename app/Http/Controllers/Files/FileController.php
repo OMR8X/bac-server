@@ -43,10 +43,10 @@ class FileController extends Controller
         $entities = $query->paginate($perPage);
 
         // Return response
+        // Merge the 'status' key with the array version of the pagination data
         return response()->json([
             'status' => 'success',
-            'data' => $entities
-        ], 200);
+        ] + $entities->toArray(), 200);
     }
 
 
