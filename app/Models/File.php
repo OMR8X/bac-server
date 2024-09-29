@@ -13,6 +13,7 @@ class File extends Model
         'title',
         'year',
         'size',
+        'extension',
         'section_id',
         'material_id',
         'teacher_id',

@@ -25,6 +25,7 @@ class StoreFileRequest extends FormRequest
             'title' => 'required|string|max:255',
             'year' => 'nullable|integer|min:1900|max:' . date('Y'),
             'size' => 'required|string',
+            'extension' => 'required|string',
             'section_id' => 'nullable|integer|exists:sections,id',
             'material_id' => 'nullable|integer|exists:materials,id',
             'teacher_id' => 'nullable|integer|exists:teachers,id',
